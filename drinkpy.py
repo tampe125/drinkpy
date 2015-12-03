@@ -1,17 +1,18 @@
+import BaseHTTPServer
+import socket
+
 __author__ = 'tampe125'
 
-import BaseHTTPServer
+s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+s.connect(("8.8.8.8",80))
+ip = (s.getsockname()[0])
+s.close()
 
-
-HOST_NAME = 'localhost'
+HOST_NAME = ip
 PORT_NUMBER = 9000
 
 
 class DrinkServer(BaseHTTPServer.BaseHTTPRequestHandler):
-    def do_HEAD(s):
-        s.send_response(200)
-        s.send_header("Content-type", "text/html")
-        s.end_headers()
     def do_GET(s):
         """Respond to a GET request."""
         s.send_response(200)
@@ -23,6 +24,7 @@ class DrinkServer(BaseHTTPServer.BaseHTTPRequestHandler):
         # then s.path equals "/foo/bar/".
         s.wfile.write("<p>You accessed path: %s</p>" % s.path)
         s.wfile.write("</body></html>")
+
 
 if __name__ == '__main__':
     server_class = BaseHTTPServer.HTTPServer
