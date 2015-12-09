@@ -12,6 +12,14 @@ s.close()
 
 HOST_NAME = ip
 PORT_NUMBER = 9000
+DEBUG = True
+
+if DEBUG:
+    import lib.FakeHat as FakeHat
+    shield = FakeHat
+else:
+    from Adafruit_MotorHAT import Adafruit_MotorHAT
+    shield = Adafruit_MotorHAT(addr=0x60)
 
 
 class DrinkServer(BaseHTTPServer.BaseHTTPRequestHandler):
@@ -31,7 +39,7 @@ class DrinkServer(BaseHTTPServer.BaseHTTPRequestHandler):
             print "Empty command stack. Stopping here"
             return
 
-        pumps = Pumps(commands)
+        pumps = Pumps(commands, shield)
 
     def log_message(self, format, *args):
         """Override standard logging to prevent too much output in console"""
