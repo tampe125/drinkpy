@@ -24,5 +24,4 @@ class Pumps:
         try:
             self.commands = json.loads(commands)
         except ValueError:
-            # TODO Throw a different error and stop the execution
-            pass
+            raise RuntimeError("Invalid command, stopping")

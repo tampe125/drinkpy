@@ -43,7 +43,11 @@ class DrinkServer(BaseHTTPServer.BaseHTTPRequestHandler):
             print "Empty command stack. Stopping here"
             return
 
-        pumps = Pumps(commands, shield)
+        try:
+            pumps = Pumps(commands, shield)
+        except RuntimeError, e:
+            print e.message
+            return
 
     def log_message(self, format, *args):
         """Override standard logging to prevent too much output in console"""
