@@ -1,6 +1,7 @@
 import BaseHTTPServer
 import socket
 import urlparse
+from lib.pump import Pumps
 
 __author__ = 'tampe125'
 
@@ -23,6 +24,14 @@ class DrinkServer(BaseHTTPServer.BaseHTTPRequestHandler):
         qs = urlparse.parse_qs(urlparse.urlparse(self.path).query)
 
         self.wfile.write(qs)
+
+        try:
+            commands = qs['commands'][0]
+        except KeyError:
+            print "Empty command stack. Stopping here"
+            return
+
+        pumps = Pumps(commands)
 
     def log_message(self, format, *args):
         """Override standard logging to prevent too much output in console"""

@@ -1,9 +1,10 @@
 import atexit
+import json
 from Adafruit_MotorHAT import Adafruit_MotorHAT
 
 
 class Pumps:
-    def __init__(self):
+    def __init__(self, commands):
         self.shield = Adafruit_MotorHAT(addr=0x60)
         shield = self.shield
 
@@ -18,3 +19,9 @@ class Pumps:
             shield.getMotor(4).run(Adafruit_MotorHAT.RELEASE)
 
         atexit.register(turnOffMotors)
+
+        try:
+            self.commands = json.loads(commands)
+        except ValueError:
+            # TODO Throw a differnt error and stop the execution
+            pass
