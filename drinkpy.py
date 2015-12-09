@@ -1,9 +1,14 @@
 import BaseHTTPServer
 import socket
 import urlparse
+import argparse
 from lib.pump import Pumps
 
 __author__ = 'tampe125'
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--debug', action='store_true', help="Debug flag")
+args = parser.parse_args()
 
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 s.connect(("8.8.8.8", 80))
@@ -12,9 +17,8 @@ s.close()
 
 HOST_NAME = ip
 PORT_NUMBER = 9000
-DEBUG = True
 
-if DEBUG:
+if args.debug:
     import lib.FakeHat as FakeHat
     shield = FakeHat
 else:
