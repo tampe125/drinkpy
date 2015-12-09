@@ -2,7 +2,7 @@ import BaseHTTPServer
 import socket
 import urlparse
 import argparse
-from lib.pump import Pumps
+from lib.recipe import Recipe
 
 __author__ = 'tampe125'
 
@@ -44,10 +44,12 @@ class DrinkServer(BaseHTTPServer.BaseHTTPRequestHandler):
             return
 
         try:
-            pumps = Pumps(commands, shield)
+            recipe = Recipe(commands, shield)
         except RuntimeError, e:
             print e.message
             return
+
+        recipe.run()
 
     def log_message(self, format, *args):
         """Override standard logging to prevent too much output in console"""
