@@ -1,6 +1,6 @@
 import atexit
 import json
-from threading import Timer
+from threading import Thread
 from time import sleep
 from lib.pump import Pump
 
@@ -30,8 +30,8 @@ class Recipe:
 
     def run(self):
         first = Pump(self.shield)
-        thread_1 = Timer(1, first.run, args=[self.commands])
-        # thread_2 = Timer(1, Pump(self.shield).run(self.commands))
+        thread_1 = Thread(target=first.execute(self.commands))
+        # thread_2 = Thread(target=Pump(self.shield).run(self.commands))
 
         for process in [thread_1, ]:
             process.daemon = True
