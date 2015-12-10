@@ -22,7 +22,7 @@ if args.debug:
     import lib.FakeHat as FakeHat
     shield = FakeHat
 else:
-    from Adafruit_MotorHAT import Adafruit_MotorHAT
+    from lib.Adafruit_MotorHAT import Adafruit_MotorHAT
     shield = Adafruit_MotorHAT(addr=0x60)
 
 

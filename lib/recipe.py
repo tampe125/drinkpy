@@ -30,7 +30,7 @@ class Recipe:
 
     def run(self):
         first = Pump(self.shield)
-        thread_1 = Timer(1, first.run, args=self.commands)
+        thread_1 = Timer(1, first.run, args=[self.commands])
         # thread_2 = Timer(1, Pump(self.shield).run(self.commands))
 
         for process in [thread_1, ]:
