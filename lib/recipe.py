@@ -1,7 +1,6 @@
 import atexit
 import json
 from threading import Thread
-from time import sleep
 from lib.pump import Pump
 
 
@@ -29,17 +28,12 @@ class Recipe:
             raise RuntimeError("Invalid command, stopping")
 
     def run(self):
-        first = Pump(self.shield)
-        thread_1 = Thread(target=first.execute(self.commands))
-        # thread_2 = Thread(target=Pump(self.shield).run(self.commands))
+        first = Pump(self.shield, self.commands)
+        second = Pump(self.shield, self.commands)
+        
+        thread_1 = Thread(target=first.run)
+        thread_2 = Thread(target=second.run)
 
-        for process in [thread_1, ]:
+        for process in [thread_1, thread_2]:
             process.daemon = True
             process.start()
-
-        # Let threads run
-        try:
-            while 1:
-                sleep(0.5)
-        except KeyboardInterrupt:
-            pass

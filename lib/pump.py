@@ -1,22 +1,20 @@
-from threading import Thread
 from time import sleep, time
 
 
 class Pump:
-    def __init__(self, shield):
+    def __init__(self, shield, stack):
         self.shield = shield
         self.current = None
         self.start = 0
         self.end = 0
+        self.stack = stack
 
-        # super(Thread, self).__init__(self)
-
-    def execute(self, stack):
+    def run(self):
         while 1:
             # If I don't have a current item, let's pop the stack and fire up the motor
             if not self.current:
                 try:
-                    self.current = stack.pop()
+                    self.current = self.stack.pop()
                 except IndexError:
                     break
 
