@@ -19,8 +19,8 @@ HOST_NAME = ip
 PORT_NUMBER = 9000
 
 if args.debug:
-    import lib.FakeHat as FakeHat
-    shield = FakeHat
+    from lib.FakeHat import FakeHat
+    shield = FakeHat()
 else:
     from lib.Adafruit_MotorHAT import Adafruit_MotorHAT
     shield = Adafruit_MotorHAT(addr=0x60)

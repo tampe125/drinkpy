@@ -30,7 +30,7 @@ class Recipe:
     def run(self):
         first = Pump(self.shield, self.commands)
         second = Pump(self.shield, self.commands)
-        
+
         thread_1 = Thread(target=first.run)
         thread_2 = Thread(target=second.run)
 

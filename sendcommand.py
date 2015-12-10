@@ -8,12 +8,14 @@ s.connect(("8.8.8.8", 80))
 ip = (s.getsockname()[0])
 s.close()
 
+# ip = '192.168.0.105'
+
 base_url = 'http://' + ip + ':9000/?commands='
 
 params = {
     'stack': [
-        {'motor1': 12},
-        {'motor2': 22}
+        {1: 5},
+        {2: 7}
     ]
 }
 

@@ -18,12 +18,14 @@ class Pump:
                 except IndexError:
                     break
 
-                motor = self.current.keys()[0]
+                num_motor = int(self.current.keys()[0])
                 interval = self.current.values()[0]
 
-                print "Starting motor " + str(motor) + " for " + str(interval) + " seconds"
+                print "Starting motor " + str(num_motor) + " for " + str(interval) + " seconds"
 
-                # TODO Start the motor
+                motor = self.shield.getMotor(num_motor)
+                motor.setSpeed(200)
+                motor.run(1)
 
                 self.start = time()
                 self.end = self.start + interval
@@ -31,8 +33,9 @@ class Pump:
             sleep(1)
 
             if time() >= self.end:
-                print "Stopping motor " + str(self.current.keys()[0])
-                # TODO Stop the motor
+                num_motor = int(self.current.keys()[0])
+                print "Stopping motor " + str(num_motor)
+                self.shield.getMotor(num_motor).run(4)
 
                 self.start = 0
                 self.end = 0
